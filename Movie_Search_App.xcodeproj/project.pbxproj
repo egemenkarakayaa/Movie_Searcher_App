@@ -60,8 +60,8 @@
 				B20ED6D829094E1000BE3EB8 /* SceneDelegate.swift */,
 				B20ED6DA29094E1000BE3EB8 /* ViewController.swift */,
 				B20ED6DC29094E1000BE3EB8 /* Main.storyboard */,
-				B20ED6DF29094E1100BE3EB8 /* Assets.xcassets */,
 				B20ED6E129094E1100BE3EB8 /* LaunchScreen.storyboard */,
+				B20ED6DF29094E1100BE3EB8 /* Assets.xcassets */,
 				B20ED6E429094E1100BE3EB8 /* Info.plist */,
 			);
 			path = Movie_Search_App;
