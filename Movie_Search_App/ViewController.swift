@@ -42,7 +42,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return
         }
         
-        URLSession.shared.dataTask(with: URL(string: "https://www.omdbapi.com/?apikey=cf9db00f&s=fast%20and&type=movie")!,
+        let query = text.replacingOccurrences(of: " ", with: "%20")
+        
+        movies.removeAll()
+        
+        URLSession.shared.dataTask(with: URL(string: "https://www.omdbapi.com/?apikey=cf9db00f&s=\(query)&type=movie")!,
                                    completionHandler: { data, response, error in
             
             guard let data = data, error == nil else {
@@ -51,12 +55,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             // Convert
             
+            var result: MovieResult?
+            
+            do {
+                
+                result = try JSONDecoder().decode(MovieResult.self, from: data)
+            }
+            
+            catch {
+               print("error")
+            }
+            
+            guard let finalResult = result else {
+                return
+            }
+                      
             
             // Update movies array
+            
+            let newMovies = finalResult.Search
+            self.movies.append(contentsOf: newMovies)
             
             
             // Refresh table
             
+            DispatchQueue.main.async {
+                
+                self.table.reloadData()
+                
+            }
             
             
              
