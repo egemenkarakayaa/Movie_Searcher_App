@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
@@ -89,9 +90,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             
-             
-                                   
-            
         }).resume()
         
         
@@ -116,10 +114,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Show movie details
         
+        let url = "https://www.imdb.com/title/\(movies[indexPath.row].imdbID)/"
+        let vc = SFSafariViewController(url: URL(string: url)!)
+        present(vc, animated: true)
         
     }
     
-
 }
 
 
@@ -142,6 +142,5 @@ struct Movie: Codable {
         case Title, Year, imdbID, _Type =  "Type", Poster
         
     }
-    
     
 }
