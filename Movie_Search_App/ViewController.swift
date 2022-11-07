@@ -10,6 +10,7 @@ import SafariServices
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
+    
     @IBOutlet var table: UITableView!
     @IBOutlet var field: UITextField!
     
@@ -26,6 +27,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         table.dataSource = self
         field.delegate = self
         
+        table.isHidden = true
+        
     }
 
     
@@ -38,6 +41,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func searchMovies() {
+        
+        table.isHidden = false
         
         field.resignFirstResponder()
         
@@ -56,6 +61,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             guard let data = data, error == nil else {
                 return
             }
+            
             
             // Convert
             
@@ -85,13 +91,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             DispatchQueue.main.async {
                 
-                self.table.reloadData()
-                
+                 self.table.reloadData()
             }
             
             
-        }).resume()
-        
+          }).resume()
         
     }
     
@@ -102,12 +106,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return movies.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as! MovieTableViewCell
         
         cell.configure(with: movies[indexPath.row])
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -120,12 +126,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    
 }
 
 
 struct MovieResult: Codable {
     
-    let Search: [Movie]
+     let Search: [Movie]
 }
 
 
